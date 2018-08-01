@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.songup.mqtt.been.MyMessage;
 
@@ -27,11 +28,12 @@ public class MyMqtt extends Service {
     public static MqttAndroidClient client;
     private MqttConnectOptions conOpt;
 
-    private String host = "tcp://10.0.2.2:61613";
-//    private String host = "tcp://192.168.1.104:61680";
+//    private String host = "tcp://10.0.2.2:61613";
+//    private String host = "tcp://0.0.0.0:61613"; //模拟器连接，本机地址
+    private String host =  "tcp://192.168.1.104:61613"; //真机连接
     private String username = "admin";
     private String password = "password";
-    private static String clientId = "test";
+    private static String clientId = "test";   //客户端Id要保持不一样，才能区分
     private String myTopic = "topic";
 
     @Override
@@ -89,6 +91,7 @@ public class MyMqtt extends Service {
             MyMessage mes = new MyMessage();
             mes.setMsg(str1);
             //EventButs 使用通知其他组件
+            Toast.makeText(MyMqtt.this, "收到消息啦", Toast.LENGTH_SHORT).show();
         }
         @Override   //失去连接，重连
         public void deliveryComplete(IMqttDeliveryToken token) {
