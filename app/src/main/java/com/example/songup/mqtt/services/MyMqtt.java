@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.songup.mqtt.been.MyMessage;
@@ -14,7 +13,6 @@ import com.example.songup.mqtt.been.MyMessage;
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.IMqttMessageListener;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -53,7 +51,7 @@ public class MyMqtt extends Service {
         //清理缓存
         conOpt.setCleanSession(true);
         //设置连接超时时间，秒
-        conOpt.setConnectionTimeout(10);
+        conOpt.setConnectionTimeout(30);
         //设置心跳包发送间隔，秒
         conOpt.setKeepAliveInterval(20);
         //用户名,密码
@@ -151,6 +149,7 @@ public class MyMqtt extends Service {
         } catch (MqttException e) {
             e.printStackTrace();
         }
+        
         super.onDestroy();
     }
 }
